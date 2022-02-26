@@ -14,8 +14,14 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "NjY5ZTQ3ZTktM2ViYy00YzVhLTlhOTItMDczMWY3MzgwZGJkfHJlYWQtd3JpdGU="
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "NjY5ZTQ3ZTktM2ViYy00YzVhLTlhOTItMDczMWY3MzgwZGJkfHJlYWQtd3JpdGU=",
+        "parallel": 1
       }
     }
   },
@@ -26,15 +32,6 @@
         "projects": "dependencies"
       }
     ]
-  },
-  "projects": {
-    "app": {
-      "tags": []
-    },
-    "app-e2e": {
-      "tags": [],
-      "implicitDependencies": ["app"]
-    }
   },
   "cli": {
     "defaultCollection": "@nrwl/nest"
