@@ -35,5 +35,9 @@
       "tags": [],
       "implicitDependencies": ["app"]
     }
-  }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "api"
 }
