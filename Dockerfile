@@ -1,9 +1,5 @@
-FROM node:lts-alpine
+FROM nginx:1.15.7-alpine as production-stage
 
-WORKDIR /app
-COPY dist/apps/app .
-
-RUN npm i -g http-server
-
-EXPOSE 8080
-CMD [ "http-server", "app" ]
+COPY default.conf /etc/nginx/conf.d/
+COPY /dist/app /usr/share/nginx/html/
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
