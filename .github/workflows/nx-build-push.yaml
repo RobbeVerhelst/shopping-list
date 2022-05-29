@@ -17,4 +17,4 @@ jobs:
 
       - run: npx nx workspace-lint
       - run: npx nx docker app
-      - run: npx nx docker api
+      # - run: npx nx docker api

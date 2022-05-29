@@ -130,7 +130,7 @@
             }
           ],
           "options": {
-            "push": false,
+            "push": true,
             "tags": [
               "registry.heroku.com/shopping-list-api:latest"
             ]
