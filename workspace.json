@@ -100,25 +100,40 @@
           "options": {
             "browserTarget": "app:build"
           },
-          "docker": {
-            "executor": "@nx-tools/nx-docker:build",
-            "dependsOn": [
-              {
-                "target": "build",
-                "projects": "self"
-              }
-            ],
-            "options": {
-              "push": false,
-              "tags": [
-                "registry.heroku.com/shopping-list-api:latest"
-              ]
+                  "docker": {
+          "executor": "@nx-tools/nx-docker:build",
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "self"
             }
-          },
+          ],
+          "options": {
+            "push": false,
+            "tags": [
+              "registry.heroku.com/shopping-list-api:latest"
+            ]
+          }
+        },
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
             }
+          }
+        },
+        "docker": {
+          "executor": "@nx-tools/nx-docker:build",
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "self"
+            }
+          ],
+          "options": {
+            "push": false,
+            "tags": [
+              "registry.heroku.com/shopping-list-api:latest"
+            ]
           }
         },
         "lint": {
