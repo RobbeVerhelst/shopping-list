@@ -16,6 +16,5 @@ jobs:
       - run: yarn --immutable
 
       - run: npx nx workspace-lint
-      - run: npx nx format:check
       - run: npx nx docker app
       - run: npx nx docker api
