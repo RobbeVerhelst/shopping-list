@@ -1,9 +1,9 @@
-FROM node:lts-alpine3.10 as builder
-WORKDIR /app/builder
-COPY . .
-RUN apk add --no-cache python3 py3-pip
-RUN apk add --update make
-RUN apk add build-base
-RUN apk add --no-cache git
+FROM node:lts-alpine
 
-RUN npm i
+WORKDIR /app
+COPY dist/apps/app .
+
+RUN npm i -g http-server
+
+EXPOSE 8080
+CMD [ "http-server", "app" ]
