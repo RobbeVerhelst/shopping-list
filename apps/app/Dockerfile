@@ -4,7 +4,6 @@ WORKDIR /app
 COPY ../../dist/apps/app .
 
 RUN npm i -g http-server
-RUN npm i
 
 EXPOSE 8080
 CMD [ "http-server", "app" ]
