@@ -1,6 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <h2>Manu is a bitch</h2>
+  <HelloWorld msg="Welcome the shopping-list" />
 </template>
 
 <script lang="ts">

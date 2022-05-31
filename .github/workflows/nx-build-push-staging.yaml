@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: nrwl/nx-set-shas@v2
+      - run: yarn --immutable
+
+      - run: npx nx workspace-lint
+      - run: npx nx build app
+    # - run: npx nx docker api
+
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_STAGING }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: true
+          appdir: .
+
+

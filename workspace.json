@@ -8,16 +8,13 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"],
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -39,22 +36,32 @@
             "buildTarget": "api:build"
           }
         },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
+        "docker": {
+          "executor": "@nx-tools/nx-docker:build",
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "self"
+            }
           ],
           "options": {
-            "lintFilePatterns": [
-              "apps/api/**/*.ts"
+            "push": false,
+            "tags": [
+              "registry.heroku.com/shopping-list-api:latest"
             ]
+          }
+        },
+    
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/api/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/api"
-          ],
+          "outputs": ["coverage/apps/api"],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
@@ -75,7 +82,7 @@
             "index": "apps/app/public/index.html",
             "main": "apps/app/src/main.ts",
             "tsConfig": "apps/app/tsconfig.app.json"
-          },
+              },
           "configurations": {
             "production": {
               "mode": "production",
@@ -93,25 +100,51 @@
           "options": {
             "browserTarget": "app:build"
           },
+                  "docker": {
+          "executor": "@nx-tools/nx-docker:build",
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "self"
+            }
+          ],
+          "options": {
+            "push": false,
+            "tags": [
+              "registry.heroku.com/shopping-list-api:latest"
+            ]
+          }
+        },
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
             }
           }
         },
+        "docker": {
+          "executor": "@nx-tools/nx-docker:build",
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "self"
+            }
+          ],
+          "options": {
+            "push": true,
+            "tags": [
+              "registry.heroku.com/shopping-list-api:latest"
+            ]
+          }
+        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/app/**/*.{ts,tsx,vue}"
-            ]
+            "lintFilePatterns": ["apps/app/**/*.{ts,tsx,vue}"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/app"
-          ],
+          "outputs": ["coverage/apps/app"],
           "options": {
             "jestConfig": "apps/app/jest.config.js",
             "passWithNoTests": true
@@ -119,41 +152,6 @@
         }
       },
       "tags": []
-    },
-    "app-e2e": {
-      "root": "apps/app-e2e",
-      "sourceRoot": "apps/app-e2e/src",
-      "projectType": "application",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/app-e2e/cypress.json",
-            "devServerTarget": "app:serve",
-            "tsConfig": "apps/app-e2e/tsconfig.json"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "options": {
-            "lintFilePatterns": [
-              "apps/app-e2e/**/*.{js,ts}"
-            ]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": [
-        "app"
-      ]
     }
   }
 }
