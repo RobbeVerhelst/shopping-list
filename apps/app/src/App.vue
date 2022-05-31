@@ -1,7 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
+  <h2>Manu is a bitch</h2>
   <HelloWorld msg="Welcome the shopping-list" />
-  <p>Manu is a bitch</p>
 </template>
 
 <script lang="ts">
